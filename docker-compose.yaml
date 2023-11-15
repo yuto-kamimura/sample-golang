@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    container_name: sample_golang_backend
+    image: mcr.microsoft.com/devcontainers/go:1-1.21-bullseye
+    tty: true
+    volumes:
+      - .:/workspaces:cache
+    depends_on:
+      - db
+    environment:
+      TZ: Asia/Tokyo
+
+  db:
+    container_name: sample_golang_db
+    image: mariadb:10.9
+    restart: always
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mariadb
+      MYSQL_DATABASE: mariadb
+      MYSQL_USER: mariadb
+      MYSQL_PASSWORD: mariadb
+      TZ: Asia/Tokyo
+    ports:
+      - 3307:3306
+
+  adminer:
+    container_name: sample_golang_adminer
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+
+volumes:
+  mariadb-data:
