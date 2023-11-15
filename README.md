@@ -1,6 +1,6 @@
-# sample golang
+# sample golang echo server
 
-# This project is sample golang server with echo to create webapp!
+# This project is sample of golang server with echo to create webapp!
 
 # to create docker container
 
