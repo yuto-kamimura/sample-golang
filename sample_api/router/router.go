@@ -33,7 +33,7 @@ func Route(e *echo.Echo) {
 	e.PUT("/item", handler.CreateItem)
 
 	// 課題１ handlerディレクトリにget_item.goを作成し、ブラウザに文字列"smart phone"を表示させる
-
+	e.GET("/get_item", handler.GetItem)
 	// 課題２ entityに新しく構造体を作成して、任意のテーブルを作成し、データを登録する
 
 	// 課題３ 課題２で作成したテーブルにデータを入力し、そのデータを更新する処理を作成する
