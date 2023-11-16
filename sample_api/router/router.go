@@ -29,11 +29,11 @@ func Route(e *echo.Echo) {
 	e.GET("/hello", handler.Hello)
 
 	// サーバーを起動して、以下のコマンドをターミナルから実行しましょう
-	// curl -X PUT -H "Content-Type: application/json" -d "{\"Name\": \"smart phone\"}" localhost:1324/item
-	e.PUT("/item", handler.CreateItem)
+	// curl -X PUT -H "Content-Type: application/json" -d "{\"items\": [{\"name\": \"item1\", \"description\": \"description1\"},{\"name\": \"item2\", \"description\": \"description2\"},{\"name\": \"item3\", \"description\": \"description3\"}]}" localhost:1324/items
+	e.PUT("/items", handler.CreateItems)
 
 	// 課題１ handlerディレクトリにget_item.goを作成し、ブラウザに文字列"smart phone"を表示させる
-
+	e.GET("/items", handler.GetItems)
 	// 課題２ entityに新しく構造体を作成して、任意のテーブルを作成し、データを登録する
 
 	// 課題３ 課題２で作成したテーブルにデータを入力し、そのデータを更新する処理を作成する
