@@ -2,30 +2,41 @@ package handler
 
 import (
 	"net/http"
-	"sampleApi/db"
 	"sampleApi/entity"
 	"time"
 
 	"github.com/labstack/echo/v4"
 )
 
-type CreateItemRequest struct {
-	Name string `json:"Name"`
-}
+type (
+	CreateItemRequest struct {
+		Items []NewlyCreatedItems `json:"items" validate:"required"`
+	}
 
-func CreateItem(c echo.Context) error {
-	req := &CreateItemRequest{}
-	if err := c.Bind(req); err != nil {
+	NewlyCreatedItems struct {
+		Name        string `json:"name" validate:"required"`
+		Description string `json:"description" validate:"required"`
+	}
+)
+
+func CreateItems(c echo.Context) error {
+	req := CreateItemRequest{}
+	if err := c.Bind(&req); err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err)
+	} else if err = c.Validate(req); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
-	dbInstance := db.GetDB()
 
-	item := entity.Item{
-		ID:        0, // Itemはautoincrementを指定しているため、自動的にIDが振られます
-		Name:      req.Name,
-		CreatedAt: time.Now(),
+	var items entity.Items
+	for _, item := range req.Items {
+		items = append(items, entity.Item{
+			Name:        item.Name,
+			Description: item.Description,
+			CreatedAt:   time.Now(),
+		})
 	}
-	if err := dbInstance.Create(&item).Error; err != nil {
+
+	if err := items.CreateItems(); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
 
