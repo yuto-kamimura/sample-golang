@@ -3,10 +3,12 @@ version: '3.8'
 services:
   backend:
     container_name: sample_golang_backend
-    image: mcr.microsoft.com/devcontainers/go:1-1.21-bullseye
+    build:
+      context: .
+      dockerfile: dockerfile
     tty: true
     volumes:
-      - .:/workspaces:cache
+      - ./sample_api:/workspaces:cache
     depends_on:
       - db
     environment:
