@@ -2,7 +2,7 @@ package router
 
 import (
 	"net/http"
-	"sampleApi/golang/handler"
+	"sampleApi/handler"
 
 	"github.com/labstack/echo/v4"
 )

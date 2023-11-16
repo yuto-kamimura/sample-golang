@@ -1,7 +1,9 @@
 package main
 
 import (
-	"sampleApi/golang/router"
+	"sampleApi/db"
+	"sampleApi/entity"
+	"sampleApi/router"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -48,6 +50,7 @@ Golangのポイント
 	}
 */
 func main() {
+	initDB()
 	e := echo.New()
 
 	e.Use(middleware.Logger())  // サーバーログを表示する
@@ -58,4 +61,11 @@ func main() {
 
 	// サーバーをポート番号1324で起動
 	e.Logger.Fatal(e.Start(":1324"))
+}
+
+func initDB() {
+	dbInstance := db.GetDB()
+	dbInstance.AutoMigrate(
+		&entity.Item{},
+	)
 }
