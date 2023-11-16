@@ -28,8 +28,13 @@ func Route(e *echo.Echo) {
 	// リクエストされたときに、handler/hello.goのHello関数を実行する
 	e.GET("/hello", handler.Hello)
 
+	// サーバーを起動して、以下のコマンドをターミナルから実行しましょう
+	// curl -X PUT -H "Content-Type: application/json" -d "{\"Name\": \"smart phone\"}" localhost:1324/item
+	e.PUT("/item", handler.CreateItem)
+
 	// 課題１ handlerディレクトリにget_item.goを作成し、ブラウザに文字列"smart phone"を表示させる
 
-	// 課題２ handlerディレクトリにcreate_item.goを作成し、ターミナルから以下のコマンドを実行し、itemを登録する
+	// 課題２ entityに新しく構造体を作成して、任意のテーブルを作成し、データを登録する
 
+	// 課題３ 課題２で作成したテーブルにデータを入力し、そのデータを更新する処理を作成する
 }

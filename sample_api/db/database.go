@@ -27,7 +27,6 @@ func init() {
 		DatabaseName: "mariadb",
 		Username:     "mariadb",
 		Password:     "mariadb",
-		Port:         "3307",
 	}
 	var err error
 
