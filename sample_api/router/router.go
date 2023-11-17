@@ -29,4 +29,5 @@ func Route(e *echo.Echo) {
 	e.PUT("/items", handler.CreateItems)
 	e.DELETE("/items", handler.DeleteItems)
 
+	e.PUT("/user", handler.CreateUser)
 }

@@ -1,6 +1,7 @@
 package entity
 
 import (
+	"sampleApi/db"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -28,6 +29,9 @@ func (u *User) EncriptPassword() error {
 }
 
 func (u *User) CreateUser() error {
-
+	dbInstance := db.GetDB()
+	if err := dbInstance.Create(&u).Error; err != nil {
+		return err
+	}
 	return nil
 }
