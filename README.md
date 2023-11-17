@@ -10,3 +10,4 @@
 1. Click `OK`.
 1. You can start development in docker container.
 
++ If you see popup about "gopl" and "go dlv", you should install them. 

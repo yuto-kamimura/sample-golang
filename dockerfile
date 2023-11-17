@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/go:1-1.21-bullseye
+FROM golang:1.21.4
 
 WORKDIR /workspaces/sample_api
 
