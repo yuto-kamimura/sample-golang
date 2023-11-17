@@ -1,0 +1,16 @@
+{
+    "items": [
+        {
+            "name": "item1",
+            "description": "description1"
+        },
+        {
+            "name": "item2",
+            "description": "description2"
+        },
+        {
+            "name": "item3",
+            "description": "description3"
+        }
+    ]
+}
