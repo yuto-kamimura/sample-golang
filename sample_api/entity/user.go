@@ -35,3 +35,20 @@ func (u *User) CreateUser() error {
 	}
 	return nil
 }
+
+func FindUser(username string) (User, error) {
+	dbInstance := db.GetDB()
+	var target User
+	if err := dbInstance.Where("username = ?", username).First(&target).Error; err != nil {
+		return User{}, err
+	}
+	return target, nil
+}
+
+func (u *User) CompareLoginPassword(target User) error {
+	if err := bcrypt.CompareHashAndPassword([]byte(target.Password), []byte(u.Password)); err != nil {
+		return err
+	}
+
+	return nil
+}

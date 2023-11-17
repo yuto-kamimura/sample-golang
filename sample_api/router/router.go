@@ -30,4 +30,5 @@ func Route(e *echo.Echo) {
 	e.DELETE("/items", handler.DeleteItems)
 
 	e.PUT("/user", handler.CreateUser)
+	e.POST("/login", handler.Login)
 }
