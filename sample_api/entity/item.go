@@ -32,3 +32,11 @@ func (u *Items) SelectItemsByItemID(id []int) error {
 	}
 	return nil
 }
+
+func (u *Items) DeleteItemsByItemID(id []int) error {
+	dbInstance := db.GetDB()
+	if err := dbInstance.Where("id IN ?", id).Delete(&Item{}).Error; err != nil {
+		return err
+	}
+	return nil
+}

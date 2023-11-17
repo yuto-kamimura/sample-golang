@@ -1,6 +1,10 @@
 package entity
 
-import "time"
+import (
+	"time"
+
+	"golang.org/x/crypto/bcrypt"
+)
 
 type (
 	User struct {
@@ -14,8 +18,13 @@ type (
 	Users []Users
 )
 
-func (u *User) EncriptPassword() {
-
+func (u *User) EncriptPassword() error {
+	hashed, err := bcrypt.GenerateFromPassword([]byte(u.Password), 10)
+	if err != nil {
+		return err
+	}
+	u.Password = string(hashed)
+	return nil
 }
 
 func (u *User) CreateUser() error {
