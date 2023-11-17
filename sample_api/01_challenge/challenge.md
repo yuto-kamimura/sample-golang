@@ -1,4 +1,4 @@
-# echo課題
+# GO API課題
 
 ## Challenge1
 echoサーバーを実行してみましょう
