@@ -25,7 +25,7 @@ func GetItems(c echo.Context) error {
 
 	items := entity.Items{}
 
-	if err := items.SelectItemsByItemID(req.IDs); err != nil {
+	if err := items.FindItemsByItemID(req.IDs); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
 

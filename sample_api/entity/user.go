@@ -20,11 +20,11 @@ type (
 )
 
 func (u *User) EncriptPassword() error {
-	hashed, err := bcrypt.GenerateFromPassword([]byte(u.Password), 10)
+	hash, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
 	}
-	u.Password = string(hashed)
+	u.Password = string(hash)
 	return nil
 }
 
@@ -45,10 +45,74 @@ func FindUser(username string) (User, error) {
 	return target, nil
 }
 
-func (u *User) CompareLoginPassword(target User) error {
+func (u *User) VerifyPassword(target User) error {
 	if err := bcrypt.CompareHashAndPassword([]byte(target.Password), []byte(u.Password)); err != nil {
 		return err
 	}
 
+	return nil
+}
+
+func (u *User) UpdateUser() error {
+	dbInstance := db.GetDB()
+	if err := dbInstance.Save(&u).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *User) DeleteUser() error {
+	dbInstance := db.GetDB()
+	if err := dbInstance.Delete(&u).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *Users) FindAllUsers() error {
+	dbInstance := db.GetDB()
+	if err := dbInstance.Find(&u).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *User) FindUserByID() error {
+	dbInstance := db.GetDB()
+	if err := dbInstance.Where("id = ?", u.ID).First(&u).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *User) FindUserByEmail() error {
+	dbInstance := db.GetDB()
+	if err := dbInstance.Where("email = ?", u.Email).First(&u).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *User) UpdatePassword() error {
+	dbInstance := db.GetDB()
+	if err := dbInstance.Model(&u).Update("password", u.Password).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *User) UpdateEmail() error {
+	dbInstance := db.GetDB()
+	if err := dbInstance.Model(&u).Update("email", u.Email).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func (u *User) UpdateUsername() error {
+	dbInstance := db.GetDB()
+	if err := dbInstance.Model(&u).Update("username", u.Username).Error; err != nil {
+		return err
+	}
 	return nil
 }

@@ -25,7 +25,7 @@ func (u *Items) CreateItems() error {
 }
 
 // 商品IDで商品を取得する
-func (u *Items) SelectItemsByItemID(id []int) error {
+func (u *Items) FindItemsByItemID(id []int) error {
 	dbInstance := db.GetDB()
 	if err := dbInstance.Where("id IN ?", id).Find(&u).Error; err != nil {
 		return err

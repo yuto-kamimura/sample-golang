@@ -30,7 +30,7 @@ func Login(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err)
 	}
 
-	if err := user.CompareLoginPassword(target); err != nil {
+	if err := user.VerifyPassword(target); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err)
 	}
 
